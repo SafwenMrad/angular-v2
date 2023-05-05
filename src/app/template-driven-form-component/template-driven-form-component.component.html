@@ -1,0 +1,54 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+    <fieldset>
+      <legend>Information générale</legend>
+      <div class="form-group">
+        <label for="nom">Nom:</label>
+        <input type="text" id="nom" formControlName="nom">
+        <div *ngIf="form.controls['nom'].invalid && (form.controls['nom'].dirty || form.controls['nom'].touched)">
+          Le nom est obligatoire
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" id="email" formControlName="email" required>
+        <div *ngIf="form.controls['email'].invalid && (form.controls['email'].dirty || form.controls['email'].touched)">
+          <div *ngIf="form.controls['email'].errors?.['required']">L'adresse email est obligatoire</div>
+          <div *ngIf="form.controls['email'].errors?.['email']">Entrez une adresse valide</div>
+        </div>
+      </div>
+      <fieldset>
+        <legend>Information paiement</legend>
+        <div class="form-group">
+          <label for="type-carte">Type de carte:</label>
+          <input type="text" id="type-carte" formControlName="typeCarte">
+          <div *ngIf="form.controls['typeCarte'].invalid && (form.controls['typeCarte'].dirty || form.controls['typeCarte'].touched)">
+            Le type de carte est obligatoire
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="numero-carte">Numéro de carte:</label>
+          <input type="text" id="numero-carte" formControlName="numeroCarte">
+          <div *ngIf="form.controls['numeroCarte'].invalid && (form.controls['numeroCarte'].dirty || form.controls['numeroCarte'].touched)">
+            Le numéro de carte doit contenir 16 chiffres
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="date-expiration">Date d'expiration:</label>
+          <input type="date" id="date-expiration" formControlName="dateExpiration">
+          <div *ngIf="form.controls['dateExpiration'].invalid && (form.controls['dateExpiration'].dirty || form.controls['dateExpiration'].touched)">
+            La date d'expiration est obligatoire
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="code">Code:</label>
+          <input type="password" id="code" formControlName="code"  [(ngModel)]="code" *ngIf="showCode">
+          <div *ngIf="form.controls['code'].invalid && (form.controls['code'].dirty || form.controls['code'].touched)">
+            Le code est obligatoire
+          </div>
+        </div>
+      </fieldset>
+    </fieldset>
+    <button type="submit" [disabled]="form.invalid">Ajouter</button>
+  </form>
+  
